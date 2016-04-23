@@ -20,6 +20,7 @@
         <provider
             android:authorities="com.treefrogapps.multiprocesspreferences.multi_preferences.MultiProvider"
             android:name=".multi_preferences.MultiProvider"
+            android:process=":multi_preferences"
             android:exported="false"
             android:multiprocess="true"/>
 

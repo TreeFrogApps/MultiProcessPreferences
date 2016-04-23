@@ -8,7 +8,6 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,7 +134,6 @@ public class MultiProvider extends ContentProvider {
 
             case CODE_BOOLEAN:
                 return preferenceToCursor(interactor.getBoolean(uri.getPathSegments().get(2), false) ? 1 : 0);
-
         }
 
         return null;
@@ -151,10 +149,6 @@ public class MultiProvider extends ContentProvider {
              * Create a new Preference Interactor class based on the Preference File Name, of return the existing one
              * from the map  - Preference (File) name comes form the Uri segment 2
              */
-
-            for(String item : uri.getPathSegments()){
-                Log.e("URI ", item);
-            }
 
             PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(2));
 
@@ -210,7 +204,6 @@ public class MultiProvider extends ContentProvider {
         }
         return 0;
     }
-
 
 
 
