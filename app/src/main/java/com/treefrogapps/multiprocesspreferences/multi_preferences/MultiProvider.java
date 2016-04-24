@@ -27,11 +27,14 @@ public class MultiProvider extends ContentProvider {
     protected static final String URL_INT = "content://" + PROVIDER_NAME + "/integer/";
     protected static final String URL_LONG = "content://" + PROVIDER_NAME + "/long/";
     protected static final String URL_BOOLEAN = "content://" + PROVIDER_NAME + "/boolean/";
+    // Special URL just for clearing preferences
+    protected static final String URL_PREFERENCES = "content://" + PROVIDER_NAME + "/prefs/";
 
     protected static final int CODE_STRING = 1;
     protected static final int CODE_INTEGER = 2;
     protected static final int CODE_LONG = 3;
     protected static final int CODE_BOOLEAN = 4;
+    protected static final int CODE_PREFS = 5;
 
     /**
      * Create UriMatcher to match all requests
@@ -40,11 +43,12 @@ public class MultiProvider extends ContentProvider {
 
     static {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        // */* = wildcard  (key/value)
+        // */* = wildcard  (name or file name / key)
         mUriMatcher.addURI(PROVIDER_NAME, "string/*/*", CODE_STRING);
         mUriMatcher.addURI(PROVIDER_NAME, "integer/*/*", CODE_INTEGER);
         mUriMatcher.addURI(PROVIDER_NAME, "long/*/*", CODE_LONG);
         mUriMatcher.addURI(PROVIDER_NAME, "boolean/*/*", CODE_BOOLEAN);
+        mUriMatcher.addURI(PROVIDER_NAME, "prefs/*/", CODE_PREFS);
     }
 
     protected static final String KEY = "key";
@@ -72,6 +76,8 @@ public class MultiProvider extends ContentProvider {
                 return Uri.parse(URL_LONG + prefFileName + "/" + key);
             case CODE_BOOLEAN:
                 return Uri.parse(URL_BOOLEAN + prefFileName + "/" + key);
+            case CODE_PREFS:
+                return Uri.parse(URL_PREFERENCES + prefFileName + "/" + key);
 
             default:
                 throw new IllegalStateException("Not Supported Type : " + prefType);
@@ -186,17 +192,22 @@ public class MultiProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
+        /**
+         * Create a new Preference Interactor class based on the Preference File Name, of return the existing one
+         * from the map  - Preference (File) name comes form the Uri segment 1
+         */
+        PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(1));
+
         switch (mUriMatcher.match(uri)) {
             case CODE_STRING:
             case CODE_INTEGER:
             case CODE_LONG:
             case CODE_BOOLEAN:
-                /**
-                 * Create a new Preference Interactor class based on the Preference File Name, of return the existing one
-                 * from the map  - Preference (File) name comes form the Uri segment 1
-                 */
-                PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(1));
                 interactor.removePref(uri.getPathSegments().get(2));
+                break;
+
+            case CODE_PREFS :
+                interactor.clearPreference();
                 break;
             default:
                 throw new IllegalStateException(" unsupported uri : " + uri);

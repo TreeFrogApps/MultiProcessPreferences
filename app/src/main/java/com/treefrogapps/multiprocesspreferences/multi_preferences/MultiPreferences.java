@@ -150,4 +150,10 @@ public class MultiPreferences {
         Uri deleteUri = MultiProvider.createQueryUri(mName, key, MultiProvider.CODE_INTEGER);
         mContext.getContentResolver().delete(deleteUri, null, null);
     }
+
+    public void clearPreferences(){
+
+        Uri clearPrefsUri = MultiProvider.createQueryUri(mName, "", MultiProvider.CODE_PREFS);
+        mContext.getContentResolver().delete(clearPrefsUri, null, null);
+    }
 }

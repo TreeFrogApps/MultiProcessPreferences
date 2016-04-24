@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String PREFS = "com.treefrogapps.multiprocesspreferences";
+    private static final String PREFS = "APP_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         preferences.setBoolean("boolean", false);
 
         Log.e(TAG, preferences.getBoolean("boolean", true) + "");
+
+        preferences.clearPreferences();
 
 
 
