@@ -5,7 +5,7 @@ wrap Shared Preferences and is safe to use across multiple processes.
 
 # Usage
 
-Copy the library folder "multi_preferences" into your app package i.e. java.com.mycompany.myappname..multi_preferences
+Copy the library folder "multi_preferences" into your app package i.e. java.com.mycompany.myappname.multi_preferences
 
 Setup your Manifest to include the provider :
 
