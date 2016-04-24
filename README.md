@@ -13,8 +13,7 @@ Setup your Manifest to include the provider :
             android:authorities="<your_package_name>.multi_preferences.MultiProvider"
             android:name=".multi_preferences.MultiProvider"
             android:process=":multi_preferences"
-            android:exported="false"
-            android:multiprocess="true"/>
+            android:exported="false"/>
             
   You'll now be able to start using the library like this:
   
