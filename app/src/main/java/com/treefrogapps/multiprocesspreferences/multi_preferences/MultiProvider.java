@@ -92,7 +92,6 @@ public class MultiProvider extends ContentProvider {
             PreferenceInteractor interactor = new PreferenceInteractor(getContext(), preferenceName);
             mPreferenceMap.put(preferenceName, interactor);
             return interactor;
-
         }
     }
 
@@ -119,7 +118,7 @@ public class MultiProvider extends ContentProvider {
          * Create a new Preference Interactor class based on the Preference File Name, of return the existing one
          * from the map  - Preference (File) name comes form the Uri segment 2
          */
-        PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(2));
+        PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(1));
 
         switch (mUriMatcher.match(uri)) {
 
@@ -150,7 +149,7 @@ public class MultiProvider extends ContentProvider {
              * from the map  - Preference (File) name comes form the Uri segment 2
              */
 
-            PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(2));
+            PreferenceInteractor interactor = getPreferenceInteractor(uri.getPathSegments().get(1));
 
             final String key = values.getAsString(KEY);
 

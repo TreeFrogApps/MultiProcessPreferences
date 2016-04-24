@@ -20,21 +20,33 @@ public class MainActivity extends AppCompatActivity {
 
         MultiPreferences preferences = new MultiPreferences(PREFS, getApplicationContext());
 
-        long timebefore = System.nanoTime();
+        long timebefore = System.currentTimeMillis();
 
         for (int i = 0; i < 1000; i++){
 
-            preferences.setInt("integer_" + i, i);
+            preferences.setString("string_key", "string_value");
         }
+
+        long after = System.currentTimeMillis() - timebefore;
+
+        Log.e(TAG, "time to insert 1000 strings = " + after);
+
+        timebefore = System.currentTimeMillis();
 
         for (int i = 0; i < 1000; i++){
 
-            preferences.getInt("integer_" + i, -1);
+            preferences.getString("string_key", "not working");
         }
 
-        long after = System.nanoTime() - timebefore;
 
-        Log.e(TAG, "time to insert and retrieve 1000 ints = " + after);
+        after = System.currentTimeMillis() - timebefore;
+
+        Log.e(TAG, "time to retrieve 1000 strings = " + after);
+
+
+        preferences.setBoolean("boolean", false);
+
+        Log.e(TAG, preferences.getBoolean("boolean", true) + "");
 
 
 
