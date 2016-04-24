@@ -17,4 +17,4 @@ Setup your Manifest to include the provider :
             
   You'll now be able to start using the library like this:
   
-    MultiPreferences preferences = new MultiPreferences("Prefences_Name", getApplicationContext());
+    MultiPreferences preferences = new MultiPreferences("Preferences_Name", getApplicationContext());
