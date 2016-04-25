@@ -15,6 +15,13 @@ Setup your Manifest to include the provider :
             android:process=":multi_preferences"
             android:exported="false"/>
             
-  You'll now be able to start using the library like this:
+  
+  Next in MultiProvider.class do the same:
+
+
+          private static final String PROVIDER_NAME =
+            "<your_package_name>.multi_preferences.MultiProvider";
+
+You'll now be able to start using the library like this:
   
     MultiPreferences preferences = new MultiPreferences("Preferences_Name", getApplicationContext());
