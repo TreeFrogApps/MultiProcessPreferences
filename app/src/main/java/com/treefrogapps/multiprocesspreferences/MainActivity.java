@@ -20,13 +20,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         MultiPreferences preferences = new MultiPreferences(PREFS, getApplicationContext());
+        preferences.clearPreferences();
 
-        //String res = preferences.getString(STRING_KEY, "default value");
+//        booleanTests(preferences);
+//        stringTests(preferences);
 
-        boolean myboolean = preferences.getBoolean(BOOLEAN_KEY, true);
-        Log.i(TAG, "myboolean=" + myboolean);
+        String val1;
+        String str;
+        val1 = "xxx";
+        Log.i(TAG, "Check set value " + val1);
+        preferences.setString(STRING_KEY, val1);
+        str = preferences.getString(STRING_KEY, "yyy");
+        if (!str.equals(val1)){
+            Log.e(TAG, "str should have set value " + val1 +", value was " + str);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+
+
+
 //        Log.i(TAG, "res=" + res);
 //        String input1= "user input 1";
 //        Log.i(TAG, "Setting STRING_KEY with =" + input1);
@@ -70,10 +83,91 @@ public class MainActivity extends AppCompatActivity {
 //        Log.e(TAG, preferences.getBoolean("boolean", true) + "");
 //
         preferences.clearPreferences();
+    }
+
+    private void booleanTests(MultiPreferences preferences) {
+        // getBoolean test
+        boolean myboolean;
+        Log.i(TAG, "Check get default value true");
+        myboolean = preferences.getBoolean(BOOLEAN_KEY, true);
+        if (myboolean != true){
+            Log.e(TAG, "myboolean should have default value true, was " + myboolean);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
+
+        Log.i(TAG, "Check get default value false");
+        myboolean = preferences.getBoolean(BOOLEAN_KEY, false);
+        if (myboolean != false){
+            Log.e(TAG, "myboolean should have default value false, was " + myboolean);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
 
 
+        Log.i(TAG, "Check set value true");
+        preferences.setBoolean(BOOLEAN_KEY, true);
+        myboolean = preferences.getBoolean(BOOLEAN_KEY, false);
+        if (myboolean != true){
+            Log.e(TAG, "myboolean should have set value true, was " + myboolean);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
 
+        Log.i(TAG, "Check set value false");
+        preferences.setBoolean(BOOLEAN_KEY, false);
+        myboolean = preferences.getBoolean(BOOLEAN_KEY, true);
+        if (myboolean != false){
+            Log.e(TAG, "myboolean should have set value false, was " + myboolean);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+    }
 
+    private void stringTests(MultiPreferences preferences) {
+        // getBoolean test
+        String str;
+        String val1 = "value1";
+        Log.i(TAG, "Check get default value " + val1);
+        str = preferences.getString(STRING_KEY, val1);
+        if (!str.equals(val1)){
+            Log.e(TAG, "string should have default value " + val1 + ",was " + str);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
+
+        val1 = "";
+        Log.i(TAG, "Check get default value " + val1);
+        str = preferences.getString(STRING_KEY, val1);
+        if (!str.equals(val1)){
+            Log.e(TAG, "string should have default value " + val1 + ",was " + str);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
+
+        val1 = "xxx";
+        Log.i(TAG, "Check set value " + val1);
+        preferences.setString(STRING_KEY, val1);
+        str = preferences.getString(STRING_KEY, "yyy");
+        if (!str.equals(val1)){
+            Log.e(TAG, "str should have set value " + val1 +", value was " + str);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+
+        val1 = "";
+        Log.i(TAG, "Check set empty string ");
+        preferences.setString(STRING_KEY, val1);
+        str = preferences.getString(STRING_KEY, "zzz");
+        if (!str.equals(val1)){
+            Log.e(TAG, "str should have set value " + val1 +", value was " + str);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
     }
 
 

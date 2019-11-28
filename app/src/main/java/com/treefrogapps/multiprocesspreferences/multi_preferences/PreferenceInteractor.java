@@ -36,8 +36,11 @@ public class PreferenceInteractor {
     }
 
     public Integer getInt(String key, int defaultVal){
-        return mSharedPreferences.getInt(key, defaultVal);
-
+        if (mSharedPreferences.contains(key)){
+            return mSharedPreferences.getInt(key, defaultVal);
+        } else {
+            return null;
+        }
     }
 
     public void setInt(String key, int value){
@@ -45,8 +48,11 @@ public class PreferenceInteractor {
     }
 
     public Long getLong(String key, long defaultVal){
-        return mSharedPreferences.getLong(key, defaultVal);
-
+        if (mSharedPreferences.contains(key)){
+            return mSharedPreferences.getLong(key, defaultVal);
+        } else {
+            return null;
+        }
     }
 
     public void setLong(String key, long value){
