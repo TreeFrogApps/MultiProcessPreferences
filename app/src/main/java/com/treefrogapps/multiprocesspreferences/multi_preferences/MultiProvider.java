@@ -109,10 +109,16 @@ public class MultiProvider extends ContentProvider {
      */
     private <T> MatrixCursor preferenceToCursor(T value) {
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{MultiProvider.VALUE}, 1);
-        MatrixCursor.RowBuilder builder = matrixCursor.newRow();
-        builder.add(value);
-        return matrixCursor;
+        if (value != null) {
+            MatrixCursor matrixCursor = new MatrixCursor(new String[]{MultiProvider.VALUE}, 1);
+            MatrixCursor.RowBuilder builder = matrixCursor.newRow();
+            builder.add(value);
+            return matrixCursor;
+        } else {
+            return null;
+            //return new MatrixCursor(new String[]{MultiProvider.VALUE}, 0);
+        }
+
     }
 
 
@@ -138,7 +144,13 @@ public class MultiProvider extends ContentProvider {
                 return preferenceToCursor(interactor.getLong(uri.getPathSegments().get(2), -1));
 
             case CODE_BOOLEAN:
-                return preferenceToCursor(interactor.getBoolean(uri.getPathSegments().get(2), false) ? 1 : 0);
+                Boolean result =  interactor.getBoolean(uri.getPathSegments().get(2), false);
+                if (result == null){
+                    return null;
+                } else
+                {
+                    return preferenceToCursor(result ? 1 : 0);
+                }
         }
 
         return null;

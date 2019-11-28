@@ -140,9 +140,10 @@ public class MultiPreferences {
                 value = tempValue;
             }
             cursor.close();
+            return true;
+        } else {
+            return defaultValue;
         }
-
-        return value == 1;
     }
 
     public void removePreference(final String key) {

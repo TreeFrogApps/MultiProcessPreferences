@@ -23,18 +23,19 @@ public class PreferenceInteractor {
                 = mContext.getSharedPreferences(mPreferenceName, Context.MODE_PRIVATE);
     }
 
-
-
-
     public String getString(String key, String defaultVal){
-     return mSharedPreferences.getString(key, defaultVal);
+        if (mSharedPreferences.contains(key)) {
+            return mSharedPreferences.getString(key, defaultVal);
+        } else {
+            return null;
+        }
     }
 
     public void setString(String key, String value){
         mSharedPreferences.edit().putString(key, value).apply();
     }
 
-    public int getInt(String key, int defaultVal){
+    public Integer getInt(String key, int defaultVal){
         return mSharedPreferences.getInt(key, defaultVal);
 
     }
@@ -43,7 +44,7 @@ public class PreferenceInteractor {
         mSharedPreferences.edit().putInt(key, value).apply();
     }
 
-    public long getLong(String key, long defaultVal){
+    public Long getLong(String key, long defaultVal){
         return mSharedPreferences.getLong(key, defaultVal);
 
     }
@@ -52,8 +53,12 @@ public class PreferenceInteractor {
         mSharedPreferences.edit().putLong(key, value).apply();
     }
 
-    public boolean getBoolean(String key, boolean defaultVal){
-        return mSharedPreferences.getBoolean(key, defaultVal);
+    public Boolean getBoolean(String key, boolean defaultVal){
+        if (mSharedPreferences.contains(key)) {
+            return mSharedPreferences.getBoolean(key, defaultVal);
+        } else {
+            return null;
+        }
     }
 
     public void setBoolean(String key, boolean value){
