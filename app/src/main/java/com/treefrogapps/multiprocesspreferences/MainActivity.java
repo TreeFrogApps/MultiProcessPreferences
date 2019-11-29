@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String STRING_KEY = "STRING_KEY";
     private static final String BOOLEAN_KEY = "BOOLEAN_KEY";
     private static final String INTEGER_KEY = "INTEGER_KEY";
+    private static final String LONG_KEY = "LONG_KEY";
 
 
     @Override
@@ -25,53 +26,67 @@ public class MainActivity extends AppCompatActivity {
         MultiPreferences preferences = new MultiPreferences(PREFS, getApplicationContext());
         preferences.clearPreferences();
 
+        Log.i(TAG, "========= functionality  tests ===============");
+        cleaningTest(preferences);
         booleanTests(preferences);
         stringTests(preferences);
         intTests(preferences);
+        longTests(preferences);
 
-//        String val1;
-//        String str;
-//        val1 = "xxx";
-//        Log.i(TAG, "Check set value " + val1);
-//        preferences.setString(STRING_KEY, val1);
-//        str = preferences.getString(STRING_KEY, "yyy");
-//        if (!str.equals(val1)) {
-//            Log.e(TAG, "str should have set value " + val1 + ", value was " + str);
-//        } else {
-//            Log.i(TAG, "Test pass");
-//        }
 
-//
-//        long timebefore = System.currentTimeMillis();
-//
-//        for (int i = 0; i < 1000; i++){
-//
-//            preferences.setString("string_key", "string_value");
-//        }
-//
-//        long after = System.currentTimeMillis() - timebefore;
-//
-//        Log.e(TAG, "time to insert 1000 strings = " + after);
-//
-//        timebefore = System.currentTimeMillis();
-//
-//        for (int i = 0; i < 1000; i++){
-//
-//            preferences.getString("string_key", "not working");
-//        }
-//
-//
-//        after = System.currentTimeMillis() - timebefore;
-//
-//        Log.e(TAG, "time to retrieve 1000 strings = " + after);
-//
-//
-//        preferences.setBoolean("boolean", false);
-//
-//        Log.e(TAG, preferences.getBoolean("boolean", true) + "");
-//
+        Log.i(TAG, "========= Performance tests ===============");
+
+        long timebefore = System.currentTimeMillis();
+
+        for (int i = 0; i < 1000; i++){
+
+            preferences.setString("string_key", "string_value");
+        }
+
+        long after = System.currentTimeMillis() - timebefore;
+
+        Log.e(TAG, "time to insert 1000 strings = " + after);
+
+        timebefore = System.currentTimeMillis();
+
+        for (int i = 0; i < 1000; i++){
+
+            preferences.getString("string_key", "not working");
+        }
+
+
+        after = System.currentTimeMillis() - timebefore;
+
+        Log.e(TAG, "time to retrieve 1000 strings = " + after);
+
+
+        preferences.setBoolean("boolean", false);
+
+        Log.e(TAG, preferences.getBoolean("boolean", true) + "");
+
         preferences.clearPreferences();
     }
+
+    private void cleaningTest(MultiPreferences preferences) {
+        Log.i(TAG, "================= cleaningTest ===============");
+        preferences.clearPreferences();
+
+        int val1 = 0;
+        int anInt;
+        val1 = 100;
+        Log.i(TAG, "Check cleaning setting value " + val1);
+        preferences.setInt(INTEGER_KEY, val1);
+        preferences.clearPreferences();
+
+        int defaultValue = 200;
+        anInt = preferences.getInt(INTEGER_KEY, defaultValue);
+        if ( anInt != defaultValue) {
+            Log.e(TAG, "cleaning did not work , return value is " + anInt + ", while it should have been " + defaultValue);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+    }
+
 
     private void booleanTests(MultiPreferences preferences) {
         Log.i(TAG, "================= booleanTests ===============");
@@ -204,6 +219,53 @@ public class MainActivity extends AppCompatActivity {
         anInt = preferences.getInt(INTEGER_KEY, 300);
         if (anInt != val1) {
             Log.e(TAG, "int should have set value " + val1 + ", value was " + anInt);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+    }
+
+    private void longTests(MultiPreferences preferences) {
+        Log.i(TAG, "================= longTests ===============");
+
+        // getBoolean test
+        long aLong = 0L;
+        long val1 = 100L;
+
+        Log.i(TAG, "Check get default value " + val1);
+        aLong = preferences.getLong(LONG_KEY, val1);
+        if ( aLong != val1) {
+            Log.e(TAG, "long should have default value " + val1 + ",was " + aLong);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
+
+        val1 = -1L;
+        Log.i(TAG, "Check get default value " + val1);
+        aLong = preferences.getLong(LONG_KEY, val1);
+        if (aLong != val1) {
+            Log.e(TAG, "long should have default value " + val1 + ",was " + aLong);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+        preferences.clearPreferences();
+
+        val1 = 100L;
+        Log.i(TAG, "Check set value " + val1);
+        preferences.setLong(LONG_KEY, val1);
+        aLong = preferences.getLong(LONG_KEY, 200L);
+        if ( aLong != val1) {
+            Log.e(TAG, "long should have set value " + val1 + ", value was " + aLong);
+        } else {
+            Log.i(TAG, "Test pass");
+        }
+
+        val1 = -1L;
+        Log.i(TAG, "Check set -1 long (defalut value of shared pref) ");
+        preferences.setLong(LONG_KEY, val1);
+        aLong = preferences.getLong(LONG_KEY, 300L);
+        if (aLong != val1) {
+            Log.e(TAG, "long should have set value " + val1 + ", value was " + aLong);
         } else {
             Log.i(TAG, "Test pass");
         }
