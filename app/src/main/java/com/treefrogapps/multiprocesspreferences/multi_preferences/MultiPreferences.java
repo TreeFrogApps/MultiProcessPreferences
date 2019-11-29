@@ -56,22 +56,15 @@ public class MultiPreferences {
     }
 
     public int getInt(final String key, final int defaultValue) {
-
-        int value = defaultValue;
-
         Uri queryUri = MultiProvider.createQueryUri(mName, key, MultiProvider.CODE_INTEGER);
-
         Cursor cursor = mContext.getContentResolver().query(queryUri, null, null, null, null, null);
-
         if(cursor != null && cursor.moveToFirst()){
-            int tempValue = cursor.getInt(cursor.getColumnIndexOrThrow(MultiProvider.VALUE));
-            if(tempValue != -1) {
-                value = tempValue;
-            }
+            int result = cursor.getInt(cursor.getColumnIndexOrThrow(MultiProvider.VALUE));
             cursor.close();
+            return result;
+        } else {
+            return defaultValue;
         }
-
-        return value;
     }
 
     public void setLong(final String key, final long value) {
