@@ -152,7 +152,8 @@ public class MultiProvider extends ContentProvider {
                     return preferenceToCursor(result ? 1 : 0);
                 }
         }
-
+        // Notify subscriber for this URI.
+        getContext().getContentResolver().notifyChange(uri, null);
         return null;
     }
 
