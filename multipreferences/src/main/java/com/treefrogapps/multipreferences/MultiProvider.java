@@ -178,7 +178,7 @@ public class MultiProvider extends ContentProvider {
     static long extractLongFromCursor(Cursor cursor, long defaultVal) {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndex(MultiProvider.VALUE));
+                return cursor.getLong(cursor.getColumnIndex(MultiProvider.VALUE));
             }
             cursor.close();
         }
