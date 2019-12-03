@@ -1,10 +1,12 @@
 package com.treefrogapps.multiprocesspreferences;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.treefrogapps.multiprocesspreferences.multi_preferences.MultiPreferences;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.treefrogapps.multipreferences.MultiPreferences;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        MultiPreferences preferences = new MultiPreferences(PREFS, getApplicationContext());
+        MultiPreferences preferences = new MultiPreferences(PREFS, getContentResolver());
 
         long timebefore = System.currentTimeMillis();
 
@@ -42,18 +44,5 @@ public class MainActivity extends AppCompatActivity {
         after = System.currentTimeMillis() - timebefore;
 
         Log.e(TAG, "time to retrieve 1000 strings = " + after);
-
-
-        preferences.setBoolean("boolean", false);
-
-        Log.e(TAG, preferences.getBoolean("boolean", true) + "");
-
-        preferences.clearPreferences();
-
-
-
-
     }
-
-
 }

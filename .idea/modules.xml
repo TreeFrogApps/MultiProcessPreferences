@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultiProcessPreferences.iml" filepath="$PROJECT_DIR$/MultiProcessPreferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/MultiProcessPreferences-app.iml" filepath="$PROJECT_DIR$/app/MultiProcessPreferences-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/general-MultiProcessPreferences.iml" filepath="$PROJECT_DIR$/general-MultiProcessPreferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multipreferences/multipreferences.iml" filepath="$PROJECT_DIR$/multipreferences/multipreferences.iml" />
     </modules>
   </component>
 </project>

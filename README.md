@@ -5,9 +5,9 @@ wrap Shared Preferences and is safe to use across multiple processes.
 
 # Usage
 
-Copy the library folder "multi_preferences" into your app package i.e. java.com.mycompany.myappname.multi_preferences
+Clone the project and use the "multi preferences" module
 
-Setup your Manifest to include the provider :
+Setup your Manifest in the module, either leave as it is or update :
 
         <provider
             android:authorities="<your_package_name>.multi_preferences.MultiProvider"
@@ -24,4 +24,4 @@ Setup your Manifest to include the provider :
 
 You'll now be able to start using the library like this:
   
-    MultiPreferences preferences = new MultiPreferences("Preferences_Name", getApplicationContext());
+    MultiPreferences preferences = new MultiPreferences("Preferences_Name", android.content.ContentResolver);

@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.treefrogapps.multipreferences">
+
+    <application>
+
+        <provider
+            android:name=".MultiProvider"
+            android:authorities="com.treefrogapps.multipreferences.MultiProvider"
+            android:exported="false"
+            android:process=":multi_preferences" />
+
+    </application>
+</manifest>
