@@ -27,8 +27,8 @@ import static com.treefrogapps.multipreferences.MultiProvider.performQuery;
  */
 public class MultiPreferences {
 
-    private ContentResolver resolver;
-    private String mName;
+    private final ContentResolver resolver;
+    private final String mName;
 
     public MultiPreferences(String prefFileName, ContentResolver resolver) {
         this.mName = prefFileName;
@@ -39,7 +39,8 @@ public class MultiPreferences {
         resolver.update(createQueryUri(mName, key, CODE_STRING), createContentValues(key, value), null, null);
     }
 
-    @Nullable public String getString(final String key, final String defaultValue) {
+    @Nullable
+    public String getString(final String key, final String defaultValue) {
         return extractStringFromCursor(performQuery(createQueryUri(mName, key, CODE_STRING), resolver), defaultValue);
     }
 

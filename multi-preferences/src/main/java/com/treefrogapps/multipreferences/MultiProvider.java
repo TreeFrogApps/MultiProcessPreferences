@@ -58,7 +58,7 @@ public class MultiProvider extends ContentProvider {
     /**
      * Map to hold all current Inter actors with shared preferences
      */
-    private Map<String, PreferenceInteractor> mPreferenceMap = new HashMap<>();
+    private final Map<String, PreferenceInteractor> prefsMap = new HashMap<>();
 
     @Override public boolean onCreate() {
         return true;
@@ -71,11 +71,11 @@ public class MultiProvider extends ContentProvider {
      * @return a new interactor, or current one in the map
      */
     PreferenceInteractor getPreferenceInteractor(String preferenceName) {
-        if (mPreferenceMap.containsKey(preferenceName)) {
-            return mPreferenceMap.get(preferenceName);
+        if (prefsMap.containsKey(preferenceName)) {
+            return prefsMap.get(preferenceName);
         } else {
             final PreferenceInteractor interactor = new PreferenceInteractor(getContext(), preferenceName);
-            mPreferenceMap.put(preferenceName, interactor);
+            prefsMap.put(preferenceName, interactor);
             return interactor;
         }
     }
@@ -124,7 +124,6 @@ public class MultiProvider extends ContentProvider {
                     interactor.setBoolean(key, b);
                     break;
             }
-
         } else {
             throw new IllegalArgumentException("Content Values are null!");
         }
@@ -158,7 +157,7 @@ public class MultiProvider extends ContentProvider {
     static String extractStringFromCursor(Cursor cursor, String defaultVal) {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                return cursor.getString(cursor.getColumnIndex(MultiProvider.VALUE));
+                return cursor.getString(cursor.getColumnIndexOrThrow(MultiProvider.VALUE));
             }
             cursor.close();
         }
@@ -168,7 +167,7 @@ public class MultiProvider extends ContentProvider {
     static int extractIntFromCursor(Cursor cursor, int defaultVal) {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndex(MultiProvider.VALUE));
+                return cursor.getInt(cursor.getColumnIndexOrThrow(MultiProvider.VALUE));
             }
             cursor.close();
         }
@@ -178,7 +177,7 @@ public class MultiProvider extends ContentProvider {
     static long extractLongFromCursor(Cursor cursor, long defaultVal) {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                return cursor.getLong(cursor.getColumnIndex(MultiProvider.VALUE));
+                return cursor.getLong(cursor.getColumnIndexOrThrow(MultiProvider.VALUE));
             }
             cursor.close();
         }
@@ -188,7 +187,7 @@ public class MultiProvider extends ContentProvider {
     static boolean extractBooleanFromCursor(Cursor cursor, boolean defaultVal) {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndex(MultiProvider.VALUE)) == 1;
+                return cursor.getInt(cursor.getColumnIndexOrThrow(MultiProvider.VALUE)) == 1;
             }
             cursor.close();
         }
